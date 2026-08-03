@@ -18,7 +18,11 @@ const CAN_RADIUS = 0.68;
  */
 function FlavorCan({ flavor, index }: { flavor: Flavor; index: number }) {
   const group = useRef<THREE.Group>(null!);
-  const label = useTexture(`/wraps/${flavor.key}.jpg`);
+  // three.js fetches this at runtime, outside Next's URL rewriting — the
+  // deployment base path must be prefixed by hand
+  const label = useTexture(
+    `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/wraps/${flavor.key}.jpg`
+  );
 
   const { gl } = useThree();
 

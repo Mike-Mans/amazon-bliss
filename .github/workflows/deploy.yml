@@ -23,12 +23,11 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      # injects basePath (/<repo>) and image settings into next.config
       - uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
       - run: npm ci
       - run: npx next build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /amazon-bliss
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
