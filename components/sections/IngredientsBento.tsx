@@ -56,10 +56,10 @@ export default function IngredientsBento() {
           <div
             id="can-dock"
             data-bento
-            className="relative min-h-[320px] rounded-[2.5rem] border border-emerald-950/10 bg-gradient-to-b from-lime-100 to-lime-200/70 md:row-span-2"
+            className="relative min-h-[380px] rounded-[2.5rem] border border-emerald-950/10 bg-gradient-to-b from-lime-100 to-lime-200/70 md:row-span-2"
           >
             <p className="absolute bottom-6 left-0 w-full text-center font-mono text-[11px] uppercase tracking-[0.4em] text-emerald-950/50">
-              Kiwi — 473 ml
+              Kiwi — 16 oz / 473 ml
             </p>
           </div>
 

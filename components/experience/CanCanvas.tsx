@@ -1,10 +1,10 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Environment, ContactShadows } from "@react-three/drei";
+import { Environment, ContactShadows, Lightformer } from "@react-three/drei";
 import { Suspense } from "react";
 import { CAMERA } from "./canState";
-import CanRig from "./CanRig";
+import CanRig, { CAN_HEIGHT } from "./CanRig";
 
 /**
  * One persistent, fixed, full-viewport canvas. The can never unmounts —
@@ -27,10 +27,51 @@ export default function CanCanvas() {
         <directionalLight position={[-5, 2, -3]} intensity={0.35} color="#BFE8C4" />
         <Suspense fallback={null}>
           <CanRig />
-          {/* Swap for <Environment files="/hdr/jungle.hdr" /> in production */}
-          <Environment preset="forest" />
+          {/*
+            Environment built procedurally from lightformers rather than a
+            preset. `preset="forest"` pulls a 1k HDR from a third-party CDN
+            (raw.githack.com), and because that fetch suspends this boundary,
+            a slow or blocked CDN meant the can never rendered at all. This
+            renders once to a small cube target: no network, no suspense.
+          */}
+          <Environment resolution={256}>
+            {/* warm canopy light from above */}
+            <Lightformer
+              intensity={2.2}
+              position={[0, 4, 3]}
+              scale={[10, 5, 1]}
+              color="#fff3d6"
+            />
+            {/* green bounce from the foliage on either side */}
+            <Lightformer
+              intensity={1.1}
+              position={[-5, 1, 1]}
+              scale={[5, 8, 1]}
+              color="#a9e0b4"
+            />
+            <Lightformer
+              intensity={0.9}
+              position={[5, 0, -2]}
+              scale={[6, 8, 1]}
+              color="#2f6b45"
+            />
+            {/* tight highlight so the aluminium reads as metal */}
+            <Lightformer
+              intensity={3}
+              position={[2, 3, 4]}
+              scale={[1.5, 4, 1]}
+              color="#ffffff"
+            />
+          </Environment>
         </Suspense>
-        <ContactShadows position={[0, -1.45, 0]} opacity={0.35} scale={8} blur={2.6} far={2} />
+        {/* sits exactly on the can's base */}
+        <ContactShadows
+          position={[0, -CAN_HEIGHT / 2, 0]}
+          opacity={0.35}
+          scale={8}
+          blur={2.6}
+          far={2}
+        />
       </Canvas>
     </div>
   );

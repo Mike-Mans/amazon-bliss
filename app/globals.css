@@ -18,8 +18,16 @@ body {
  * The atmosphere layer. GSAP tweens --bg-a / --bg-b as CSS variables;
  * because the gradient references them, the whole page background morphs
  * with zero React re-renders and zero repaint of content layers.
+ *
+ * The two defaults below are load-bearing, not decorative: ScrollTrigger's
+ * refresh cycle reverts tweened custom properties by REMOVING them, which
+ * wipes whatever React set inline and left the page blank white on first
+ * paint. Declared here, var() always resolves.
+ * Keep in sync with FLAVORS[0] in lib/flavors.ts.
  */
 #bg {
+  --bg-a: #3e8e4e;
+  --bg-b: #e8912a;
   background: linear-gradient(175deg, var(--bg-a) 0%, var(--bg-b) 100%);
 }
 

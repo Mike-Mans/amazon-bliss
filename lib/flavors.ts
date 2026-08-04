@@ -8,6 +8,8 @@ export type Flavor = {
   bgB: string;
 };
 
+/** Mango's bgA/bgB are mirrored as the #bg defaults in app/globals.css —
+ *  update both together. */
 export const FLAVORS: Flavor[] = [
   {
     key: "mango",

@@ -92,7 +92,7 @@ export default function PreorderForm() {
                   {f.name}
                 </p>
                 <p className="truncate text-xs text-emerald-950/50">
-                  {money(PRICE_PER_CAN)} per can
+                  {money(PRICE_PER_CAN)} per 16 oz can
                 </p>
               </div>
               <div className="flex items-center gap-1">

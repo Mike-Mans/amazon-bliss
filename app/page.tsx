@@ -6,7 +6,6 @@ import Hero from "@/components/sections/Hero";
 import Dive from "@/components/sections/Dive";
 import Flavors from "@/components/sections/Flavors";
 import IngredientsBento from "@/components/sections/IngredientsBento";
-import { FLAVORS } from "@/lib/flavors";
 
 /**
  * Layer map (bottom -> top):
@@ -21,16 +20,9 @@ export default function Page() {
       <SmoothScroll />
       <ScrollChoreographer />
 
-      <div
-        id="bg"
-        className="fixed inset-0 z-0"
-        style={
-          {
-            "--bg-a": FLAVORS[0].bgA,
-            "--bg-b": FLAVORS[0].bgB,
-          } as React.CSSProperties
-        }
-      />
+      {/* starting colours live in globals.css — see the note there on why
+          they cannot be set inline from FLAVORS */}
+      <div id="bg" className="fixed inset-0 z-0" />
 
       <CanCanvas />
       <PreorderButton />
